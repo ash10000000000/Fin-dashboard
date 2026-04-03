@@ -40,7 +40,7 @@ A full-stack finance data processing and access control system. The Express + SQ
 - **Centralized error handling** — single Express error middleware catches all errors; controllers call `next(error)`, never `res.json` directly
 - **Graceful shutdown** — handles `SIGTERM` and `SIGINT`, closes HTTP server and SQLite connection cleanly
 - **Swagger API docs** — available at `/api/docs`
-- **Idempotent seed script** — 3 demo users (one per role) + 30 financial records
+- **Idempotent seed script** — 3 demo users (one per role) + 120 financial records
 
 ### Frontend
 - **Polished UI** — custom CSS with design tokens (shadows, radii, transitions, focus rings)
@@ -76,14 +76,16 @@ A full-stack finance data processing and access control system. The Express + SQ
    - Copy `backend/.env.example` to `backend/.env` and fill in values (see section below).
    - Optional: copy `frontend/.env.example` to `frontend/.env` if you need a non-default API base URL.
 
-4. **Seed the database** (creates 3 demo users and 30 financial records)
+4. **Seed the database** (creates 3 demo users and 120 financial records)
 
    ```bash
    cd backend
    npm run seed
    ```
 
-   Safe to run again: it skips existing users and tops up missing records.
+   **No manual database setup needed.** On first run, the app automatically creates the SQLite file (`finance.db`) and all tables via `CREATE TABLE IF NOT EXISTS`. Running `npm run seed` or `npm run dev` is all that's required — the tables are initialized before any data is inserted.
+
+   Safe to run again: it skips existing users (never duplicates them) and refreshes all financial records from scratch.
 
    ### Demo Accounts
 
