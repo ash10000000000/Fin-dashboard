@@ -1,0 +1,27 @@
+.users-toolbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.users-page .field-error {
+  display: block;
+  margin-top: var(--space-1);
+  font-size: 12px;
+  color: var(--color-expense);
+}
+
+.users-page .inline-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: users-spin 0.6s linear infinite;
+}
+
+@keyframes users-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,53 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-6);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border-light);
+  box-shadow: var(--shadow-sm);
+}
+
+.navbar__title {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-heading);
+  letter-spacing: -0.01em;
+}
+
+.navbar__right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.navbar__name {
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-label);
+}
+
+.navbar__badge {
+  display: inline-block;
+  padding: var(--space-1) var(--space-3);
+  border-radius: 999px;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  font-size: 12px;
+  font-weight: var(--font-weight-heading);
+  text-transform: capitalize;
+}
+
+.navbar__logout {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-label);
+  transition: all var(--transition-fast);
+}
+
+.navbar__logout:hover {
+  background: var(--color-expense-light);
+  border-color: var(--color-expense);
+  color: var(--color-expense);
+}

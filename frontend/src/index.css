@@ -1,0 +1,100 @@
+:root {
+  --color-primary: #1a73e8;
+  --color-primary-light: #e8f0fe;
+  --color-primary-dark: #1557b0;
+  --color-income: #1e8c45;
+  --color-income-light: rgba(30, 140, 69, 0.08);
+  --color-expense: #c5221f;
+  --color-expense-light: rgba(197, 34, 31, 0.08);
+  --color-bg: #f0f2f5;
+  --color-surface: #ffffff;
+  --color-border: #dadce0;
+  --color-border-light: #e8eaed;
+  --color-text-primary: #202124;
+  --color-text-secondary: #5f6368;
+  --color-text-tertiary: #80868b;
+  --color-accent: #f29900;
+  --color-success: #1e8c45;
+  --color-error: #c5221f;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  --transition-fast: 150ms ease;
+  --transition-normal: 200ms ease;
+
+  --font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-size-base: 14px;
+  --font-weight-body: 400;
+  --font-weight-label: 600;
+  --font-weight-heading: 700;
+  --font-size-h3: 20px;
+  --font-size-h2: 24px;
+  --font-size-h1: 32px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-body);
+  color: var(--color-text-primary);
+  background: var(--color-bg);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: var(--font-weight-heading);
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+}
+
+h3 {
+  font-size: var(--font-size-h3);
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}

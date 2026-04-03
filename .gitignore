@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.env
+*.db
+jest-finance.db
+finance.db
+tmp-*.db
+coverage/
