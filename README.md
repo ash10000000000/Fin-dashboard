@@ -17,7 +17,7 @@ A full-stack finance data processing and access control system. The Express + SQ
 | Env loading | dotenv | 16.4.7 |
 | Validation | zod | 3.24.1 |
 | Rate limiting | express-rate-limit | 7.5.0 |
-| Logging | morgan | ^1.10.0 |
+| Logging | morgan | 1.10.0 |
 | API docs | swagger-jsdoc, swagger-ui-express | 6.2.8, 5.0.1 |
 | Testing | jest, supertest | 29.7.0, 7.0.0 |
 | Frontend UI | react, react-dom | 18.3.1 |
