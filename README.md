@@ -85,10 +85,15 @@ A full-stack finance data processing and access control system. The Express + SQ
 
    Safe to run again: it skips existing users and tops up missing records.
 
-   Default demo accounts (password: `Password123!`):
-   - `admin@example.com` — full CRUD on records and users
-   - `analyst@example.com` — read records, view dashboard analytics
-   - `viewer@example.com` — read records only
+   ### Demo Accounts
+
+   All accounts use the same password: **`Password123!`**
+
+   | Email | Password | Role | Permissions |
+   | --- | --- | --- | --- |
+   | `admin@example.com` | `Password123!` | Admin | Full CRUD on records and users, dashboard analytics |
+   | `analyst@example.com` | `Password123!` | Analyst | Read records, view dashboard analytics and trends |
+   | `viewer@example.com` | `Password123!` | Viewer | Read-only access to records and dashboard summary |
 
 5. **Run the development servers**
 
