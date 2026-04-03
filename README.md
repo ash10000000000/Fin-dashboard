@@ -1,6 +1,6 @@
 # Finance Dashboard
 
-This repository is a full-stack finance data processing and access control system. The Express and SQLite backend enforces JWT cookie authentication, Zod validation, role-based API guards, and Swagger documentation. The React (Vite) dashboard consumes those APIs with plain CSS, Recharts analytics for elevated roles, and inline admin workflows for users and transactions.
+A full-stack finance data processing and access control system. The Express + SQLite backend enforces JWT cookie authentication, Zod validation, role-based API guards, Swagger documentation, request tracing, and graceful shutdown. The React (Vite) dashboard consumes those APIs with polished CSS, Recharts analytics, and inline admin workflows for users and transactions.
 
 ---
 
@@ -17,6 +17,7 @@ This repository is a full-stack finance data processing and access control syste
 | Env loading | dotenv | 16.4.7 |
 | Validation | zod | 3.24.1 |
 | Rate limiting | express-rate-limit | 7.5.0 |
+| Logging | morgan | ^1.10.0 |
 | API docs | swagger-jsdoc, swagger-ui-express | 6.2.8, 5.0.1 |
 | Testing | jest, supertest | 29.7.0, 7.0.0 |
 | Frontend UI | react, react-dom | 18.3.1 |
@@ -24,6 +25,36 @@ This repository is a full-stack finance data processing and access control syste
 | HTTP client | axios | 1.7.9 |
 | Charts | recharts | 2.15.0 |
 | Build | vite, @vitejs/plugin-react | 6.0.6, 4.3.4 |
+
+---
+
+## Features
+
+### Backend
+- **JWT cookie authentication** — httpOnly, sameSite=lax, secure in production
+- **Role-based access control** — three roles: `viewer`, `analyst`, `admin`
+- **Zod validation** — centralized request body/query schema validation with field-level error responses
+- **Rate limiting** — global (100 req/15min) and login (10 req/15min) limits
+- **Request tracing** — `X-Request-ID` header generated via UUID v4 on every request, included in all error responses
+- **Structured logging** — Morgan middleware logs method, URL, status, response time, and request ID
+- **Centralized error handling** — single Express error middleware catches all errors; controllers call `next(error)`, never `res.json` directly
+- **Graceful shutdown** — handles `SIGTERM` and `SIGINT`, closes HTTP server and SQLite connection cleanly
+- **Swagger API docs** — available at `/api/docs`
+- **Idempotent seed script** — 3 demo users (one per role) + 30 financial records
+
+### Frontend
+- **Polished UI** — custom CSS with design tokens (shadows, radii, transitions, focus rings)
+- **Skeleton loaders** — shimmer placeholders on every API call, no flashing empty content
+- **Empty state messages** — descriptive messages on every table when no data exists
+- **Toast notifications** — bottom-right, auto-dismiss 3s, stackable, success/error/info variants
+- **Inline field-level errors** — validation errors displayed directly below form fields
+- **Optimistic UI on delete** — row removed immediately, restored if API fails
+- **Persistent auth on refresh** — calls `GET /api/auth/me` on mount, shows full-page spinner during check
+- **Protected routes** — redirects unauthenticated users to `/login`, non-admins away from `/users`
+- **Amount formatting** — `+`/`−` prefix on amounts in tables, not relying on color alone
+- **Input sanitization** — amount fields reject non-numeric characters (`e`, `+`, `-`) including paste events
+- **Per-page titles** — dynamic `<title>` tags (e.g., "Dashboard — FinanceApp")
+- **Favicon** — SVG icon in `public/favicon.svg`
 
 ---
 
@@ -45,16 +76,19 @@ This repository is a full-stack finance data processing and access control syste
    - Copy `backend/.env.example` to `backend/.env` and fill in values (see section below).
    - Optional: copy `frontend/.env.example` to `frontend/.env` if you need a non-default API base URL.
 
-4. **Seed the database** (creates demo users, baseline rows if none exist, and fills up to `SEED_TARGET_FINANCIAL_RECORD_COUNT` financial records — see `backend/src/constants/index.js`, default 220)
+4. **Seed the database** (creates 3 demo users and 30 financial records)
 
    ```bash
    cd backend
    npm run seed
    ```
 
-   Safe to run again: it tops up missing rows until the target count is reached (it does not wipe existing data).
+   Safe to run again: it skips existing users and tops up missing records.
 
-   Default demo accounts (password from seed script): `admin@example.com`, `analyst@example.com`, `viewer@example.com` — use the password defined as `SEED_DEMO_PLAINTEXT_PASSWORD` in `backend/src/constants/index.js` (default `Password123!`).
+   Default demo accounts (password: `Password123!`):
+   - `admin@example.com` — full CRUD on records and users
+   - `analyst@example.com` — read records, view dashboard analytics
+   - `viewer@example.com` — read records only
 
 5. **Run the development servers**
 
@@ -82,7 +116,7 @@ This repository is a full-stack finance data processing and access control syste
 
 | Variable | Required | Description |
 | --- | --- | --- |
-| `JWT_SECRET` | Yes | Secret for signing JWTs |
+| `JWT_SECRET` | Yes | Secret for signing JWTs (min 32 chars recommended) |
 | `PORT` | No | API port (default `3000`) |
 | `NODE_ENV` | No | `development` or `production` |
 | `DATABASE_PATH` | No | SQLite file path (default `./finance.db`) |
@@ -156,5 +190,5 @@ Jest runs integration tests against a temporary SQLite file (`jest-finance.db` i
 
 ## Project Structure
 
-- `backend/` — Express app (`app.js`, `server.js`, `db.js`, `swagger.js`), layered `src/` (routes, controllers, services, models, middleware, validators, utils, tests).
-- `frontend/` — Vite React app under `src/` (pages, components, api, context, hooks).
+- `backend/` — Express app (`app.js`, `server.js`, `db.js`, `swagger.js`, `seed.js`), layered `src/` (routes, controllers, services, models, middleware, validators, utils, tests).
+- `frontend/` — Vite React app under `src/` (pages, components, api, context, hooks, constants, utils).
